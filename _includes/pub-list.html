@@ -1,0 +1,6 @@
+<div class="pubs-grid">
+  {% assign items = site.publications | sort: "date" | reverse %}
+  {% for post in items %}
+    {% include pub-row.html post=post %}
+  {% endfor %}
+</div>

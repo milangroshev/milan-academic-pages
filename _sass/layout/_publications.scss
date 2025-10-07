@@ -1,0 +1,33 @@
+/* Only affects the custom publications list */
+.pub-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.pub-thumb {
+  flex: 0 0 240px;
+  max-width: 240px;
+}
+
+.pub-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+@media (max-width: 800px) {
+  .pub-row { display: block; }
+  .pub-thumb { max-width: none; width: 100%; margin-bottom: 0.75rem; }
+}
+
+/* even spacing between publication rows, fixes images touching */
+.pubs-grid {
+  display: grid;
+  row-gap: 1.75rem;
+}
+
+/* keep the row itself tight so spacing comes from the grid */
+.pubs-grid .pub-row { margin: 0; padding: 0; }
+

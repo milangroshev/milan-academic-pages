@@ -1,0 +1,31 @@
+<div class="archive__item pub-row">
+  {% if include.post.image %}
+    <div class="pub-thumb">
+      <img src="{{ include.post.image }}" alt="{{ include.post.title | escape }}">
+    </div>
+  {% endif %}
+
+  <div class="archive__item-body">
+    <h2 class="archive__item-title">
+      <a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a>
+    </h2>
+
+    {% comment %} venue and year line {% endcomment %}
+    {% if include.post.venue or include.post.date %}
+    <p class="archive__item-excerpt">
+      {% if include.post.venue %}Published in <em>{{ include.post.venue }}</em>{% endif %}
+      {% if include.post.date %}{% if include.post.venue %}, {% endif %}{{ include.post.date | date: "%Y" }}{% endif %}
+    </p>
+    {% endif %}
+
+    {% if include.post.excerpt %}
+      <p class="archive__item-excerpt">{{ include.post.excerpt }}</p>
+    {% endif %}
+
+    {% if include.post.paperurl %}
+      <p class="archive__item-excerpt">
+        <a href="{{ include.post.paperurl }}" target="_blank" rel="noopener">Download</a>
+      </p>
+    {% endif %}
+  </div>
+</div>
