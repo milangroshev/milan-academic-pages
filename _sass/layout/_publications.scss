@@ -31,3 +31,56 @@
 /* keep the row itself tight so spacing comes from the grid */
 .pubs-grid .pub-row { margin: 0; padding: 0; }
 
+/* set one size for all publication figures */
+:root {
+  --pub-thumb-w: 240px;   /* change if you prefer */
+  --pub-thumb-h: 160px;   /* 3:2 aspect */
+}
+
+.pub-thumb {
+  flex: 0 0 var(--pub-thumb-w);
+  width: var(--pub-thumb-w);
+}
+
+.pub-thumb img {
+  display: block;
+  width: 100%;
+  height: var(--pub-thumb-h);
+  object-fit: cover;      /* center crop to the box */
+  object-position: center;
+  border-radius: 6px;
+}
+
+/* mobile, stack and let the image be full width with a softer height */
+@media (max-width: 800px) {
+  .pub-thumb { width: 100%; flex: none; }
+  .pub-thumb img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;  /* keeps a pleasant ratio on phones */
+  }
+}
+
+.pub-badges { margin: 0 0 .35rem 0; }
+.pub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .85rem;
+  font-weight: 600;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  background: #fff3d4;
+  border: 1px solid rgba(0,0,0,.08);
+  text-decoration: none;
+}
+.pub-badge i { font-size: .9em; line-height: 1; }
+.pub-badge:hover { text-decoration: none; filter: brightness(.98); }
+
+/* red status badge */
+.pub-badge--danger {
+  background: #ffe5e5;
+  border: 1px solid rgba(0,0,0,.08);
+  color: #b00020;
+}
+.pub-badge--danger i { color: inherit; }

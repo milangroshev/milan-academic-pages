@@ -6,26 +6,64 @@
   {% endif %}
 
   <div class="archive__item-body">
+
+    {%- comment -%} badges {%- endcomment -%}
+    {% assign review_label = include.post.under_review | default: false %}
+    {% if review_label or include.post.awards or include.post.award %}
+    <div class="pub-badges">
+        {%- if review_label -%}
+        <span class="pub-badge pub-badge--danger">
+            <i class="fas fa-hourglass-half" aria-hidden="true"></i>
+            {{ review_label | default: "Under review" }}
+        </span>
+        {%- endif -%}
+
+        {%- if include.post.awards -%}
+        {%- for a in include.post.awards -%}
+            {%- if a.url -%}
+            <a class="pub-badge" href="{{ a.url }}" target="_blank" rel="noopener">
+                <i class="fas fa-trophy" aria-hidden="true"></i> {{ a.name }}
+            </a>
+            {%- else -%}
+            <span class="pub-badge"><i class="fas fa-trophy" aria-hidden="true"></i> {{ a.name }}</span>
+            {%- endif -%}
+        {%- endfor -%}
+        {%- elsif include.post.award -%}
+        {%- if include.post.award_url -%}
+            <a class="pub-badge" href="{{ include.post.award_url }}" target="_blank" rel="noopener">
+            <i class="fas fa-trophy" aria-hidden="true"></i> {{ include.post.award }}
+            </a>
+        {%- else -%}
+            <span class="pub-badge"><i class="fas fa-trophy" aria-hidden="true"></i> {{ include.post.award }}</span>
+        {%- endif -%}
+        {%- endif -%}
+    </div>
+    {% endif %}
+
+
     <h2 class="archive__item-title">
       <a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a>
     </h2>
 
-    {% comment %} venue and year line {% endcomment %}
     {% if include.post.venue or include.post.date %}
-    <p class="archive__item-excerpt">
-      {% if include.post.venue %}Published in <em>{{ include.post.venue }}</em>{% endif %}
-      {% if include.post.date %}{% if include.post.venue %}, {% endif %}{{ include.post.date | date: "%Y" }}{% endif %}
-    </p>
+      <p class="archive__item-excerpt">
+        {% if include.post.venue %}Published in <em>{{ include.post.venue }}</em>{% endif %}
+        {% if include.post.date %}{% if include.post.venue %}, {% endif %}{{ include.post.date | date: "%Y" }}{% endif %}
+      </p>
     {% endif %}
 
     {% if include.post.excerpt %}
       <p class="archive__item-excerpt">{{ include.post.excerpt }}</p>
     {% endif %}
 
-    {% if include.post.paperurl %}
-      <p class="archive__item-excerpt">
-        <a href="{{ include.post.paperurl }}" target="_blank" rel="noopener">Download</a>
-      </p>
-    {% endif %}
+    <p class="archive__item-excerpt pub-links">
+      {% if include.post.paperurl %}
+        <a href="{{ include.post.paperurl }}" target="_blank" rel="noopener">Paper</a>
+      {% endif %}
+      {% if include.post.codeUrl %}
+        {% if include.post.paperurl %} &middot; {% endif %}
+        <a href="{{ include.post.codeUrl }}" target="_blank" rel="noopener">Code</a>
+      {% endif %}
+    </p>
   </div>
 </div>
